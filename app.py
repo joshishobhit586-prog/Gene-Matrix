@@ -1,6 +1,6 @@
 """
 DNA Sequence Analysis Toolkit
-------------------------------
+
 A Streamlit web app that takes a DNA sequence and returns:
   1. Sequence length
   2. Complementary strand (and reverse complement)
@@ -8,9 +8,6 @@ A Streamlit web app that takes a DNA sequence and returns:
   4. RNA sequence (transcription)
   5. Protein sequence (translation)
   6. Predicted 3D protein structure (via the ESMFold API)
-
-Run with:
-    streamlit run app.py
 """
 
 import re
@@ -18,9 +15,9 @@ import requests
 import streamlit as st
 from Bio.Seq import Seq
 
-# ----------------------------------------------------------------------
+
 # Page setup
-# ----------------------------------------------------------------------
+
 st.set_page_config(page_title="DNA Analysis Toolkit", page_icon="🧬", layout="wide")
 st.title("🧬 DNA Sequence Analysis Toolkit")
 st.caption(
@@ -29,9 +26,10 @@ st.caption(
     "protein structure"
 )
 
-# ----------------------------------------------------------------------
+
 # Helpers
-# ----------------------------------------------------------------------
+
+
 VALID_BASES = set("ATGC")
 COMPLEMENT = {"A": "T", "T": "A", "G": "C", "C": "G"}
 
@@ -75,10 +73,8 @@ def translate_dna(seq: str) -> str:
     protein = str(Seq(seq[:coding_len]).translate(to_stop=False))
     return protein
 
+#Input
 
-# ----------------------------------------------------------------------
-# Input
-# ----------------------------------------------------------------------
 example_seq = "ATGGCCATTGTAATGGGCCGCTGAAAGGGTGCCCGATAG"
 
 raw_input = st.text_area(
@@ -118,9 +114,9 @@ if analyze:
     st.session_state["rna"] = to_rna(seq)
     st.session_state["protein"] = translate_dna(seq)
 
-# ----------------------------------------------------------------------
-# Output
-# ----------------------------------------------------------------------
+
+#Output
+
 if "seq" in st.session_state:
     seq = st.session_state["seq"]
 
@@ -163,8 +159,7 @@ if "seq" in st.session_state:
     st.caption("'*' marks a stop codon.")
 
     clean_protein = protein.replace("*", "")
-
-    # ------------------------------------------------------------------
+#-------------------------------------------------------
     st.divider()
     st.subheader("6. Predicted 3D Protein Structure")
     st.caption(
@@ -235,7 +230,5 @@ if "seq" in st.session_state:
             file_name="predicted_structure.pdb",
             mime="chemical/x-pdb",
         )
-
-    # -----------------------------------------------------------
 else:
     st.info("Enter a DNA sequence above and click **Analyze sequence** to begin.")
