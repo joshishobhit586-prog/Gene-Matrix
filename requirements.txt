@@ -1,0 +1,6 @@
+streamlit>=1.32
+biopython>=1.83
+requests>=2.31
+py3Dmol>=2.0.4
+stmol>=0.0.9
+ipython_genutils
