@@ -11,6 +11,7 @@ A Streamlit web app that takes a DNA sequence and returns:
 """
 
 import re
+import time
 import requests
 import streamlit as st
 from Bio.Seq import Seq
@@ -187,7 +188,18 @@ if "seq" in st.session_state:
                 "caps at 400. Try a shorter sequence."
             )
         else:
-            with st.spinner("Contacting ESMFold API and predicting structure..."):
+            RETRYABLE_STATUSES = {502, 503, 504}
+            MAX_ATTEMPTS = 3
+
+            pdb_text = None
+            last_status = None
+            last_error = None
+
+            status_box = st.empty()
+            for attempt in range(1, MAX_ATTEMPTS + 1):
+                status_box.info(
+                    f"Contacting ESMFold API (attempt {attempt}/{MAX_ATTEMPTS})..."
+                )
                 try:
                     resp = requests.post(
                         "https://api.esmatlas.com/foldSequence/v1/pdb/",
@@ -198,15 +210,35 @@ if "seq" in st.session_state:
                         ("HEADER", "ATOM", "REMARK")
                     ):
                         pdb_text = resp.text
-                        st.session_state["pdb_text"] = pdb_text
-                        st.success("Structure predicted.")
-                    else:
-                        st.error(
-                            f"ESMFold API returned an error (status "
-                            f"{resp.status_code}). Try again later."
-                        )
+                        break
+                    last_status = resp.status_code
+                    if resp.status_code not in RETRYABLE_STATUSES:
+                        break  # non-transient error, no point retrying
                 except requests.RequestException as e:
-                    st.error(f"Could not reach ESMFold API: {e}")
+                    last_error = e
+
+                if attempt < MAX_ATTEMPTS:
+                    time.sleep(5 * attempt)  # 5s, then 10s backoff
+
+            status_box.empty()
+
+            if pdb_text:
+                st.session_state["pdb_text"] = pdb_text
+                st.success("Structure predicted.")
+            elif last_status in RETRYABLE_STATUSES:
+                st.error(
+                    f"ESMFold API is temporarily overloaded (status {last_status}) "
+                    f"and didn't respond after {MAX_ATTEMPTS} attempts. This is a "
+                    "server-side issue on their end — wait a bit and try again, or "
+                    "try a shorter sequence."
+                )
+            elif last_status is not None:
+                st.error(
+                    f"ESMFold API returned an error (status {last_status}). "
+                    "Try again later."
+                )
+            elif last_error is not None:
+                st.error(f"Could not reach ESMFold API: {last_error}")
 
     if "pdb_text" in st.session_state:
         try:
