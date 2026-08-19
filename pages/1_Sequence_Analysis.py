@@ -4,7 +4,8 @@ from dna_utils import (
     clean_sequence,
     validate_sequence,
     complementary_strand,
-    reverse_complement
+    reverse_complement,
+    translate_dna
 )
 
 
@@ -19,18 +20,19 @@ st.write(
 example_seq = "ATGGTGCATCTGACTCCTGAGGAGAAGTCTGCCGTTACTGCCCGTGGGGA"
 
 
-raw_input = st.text_area(
-    "Paste your DNA sequence:",
-    height=150,
-    placeholder=f"Example: {example_seq}",
-    key="dna_input"
-)
+# Callback function to safely update the text area
+def load_example():
+    st.session_state["dna_input"] = example_seq
 
 
+# Buttons
 col1, col2 = st.columns(2)
 
 with col1:
-    use_example = st.button("Use example sequence")
+    st.button(
+        "Use example sequence",
+        on_click=load_example
+    )
 
 with col2:
     analyze = st.button(
@@ -39,21 +41,16 @@ with col2:
     )
 
 
-def load_example():
-    st.session_state["dna_input"] = example_seq
-
-st.button(
-    "Use example sequence",
-    on_click=load_example
+# DNA input box
+raw_input = st.text_area(
+    "Paste your DNA sequence:",
+    height=150,
+    placeholder=f"Example: {example_seq}",
+    key="dna_input"
 )
 
-'''
-old and not wroking
-if use_example:
-    st.session_state["dna_input"] = example_seq
-    st.rerun()
-'''
 
+# Analyze sequence
 if analyze:
 
     seq = clean_sequence(raw_input)
@@ -85,15 +82,12 @@ if analyze:
 
     st.session_state["rna"] = seq.replace("T", "U")
 
-    from dna_utils import translate_dna
-
     st.session_state["protein"] = translate_dna(seq)
 
     st.success("Sequence analyzed successfully!")
 
 
-# Display results if a sequence has been analyzed
-
+# Display results
 if "seq" in st.session_state:
 
     seq = st.session_state["seq"]
