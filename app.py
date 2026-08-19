@@ -37,7 +37,7 @@ st.divider()
 
 st.subheader("Example DNA sequence")
 
-example_seq = "ATGGCCATTGTAATGGGCCGCTGAAAGGGTGCCCGATAG"
+example_seq = "ATGGTGCATCTGACTCCTGAGGAGAAGTCTGCCGTTACTGCCCGTGGGGA"
 
 st.code(example_seq, language="text")
 

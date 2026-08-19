@@ -16,7 +16,7 @@ st.write(
 )
 
 
-example_seq = "ATGGCCATTGTAATGGGCCGCTGAAAGGGTGCCCGATAG"
+example_seq = "ATGGTGCATCTGACTCCTGAGGAGAAGTCTGCCGTTACTGCCCGTGGGGA"
 
 
 raw_input = st.text_area(
