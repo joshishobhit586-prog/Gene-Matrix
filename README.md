@@ -20,8 +20,7 @@ pip install -r requirements.txt
 ## Run
 
 ```url
-https://gene-matrix.streamlit.app/
-```
+https://gene-matrix-uuwjruximt3u6bn67kuqvp.streamlit.app/Sequence_Analysis```
 
 This opens the Website
 
