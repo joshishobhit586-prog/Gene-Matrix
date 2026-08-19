@@ -194,6 +194,7 @@ if "seq" in st.session_state:
             pdb_text = None
             last_status = None
             last_error = None
+            last_body = None
 
             status_box = st.empty()
             for attempt in range(1, MAX_ATTEMPTS + 1):
@@ -212,6 +213,7 @@ if "seq" in st.session_state:
                         pdb_text = resp.text
                         break
                     last_status = resp.status_code
+                    last_body = resp.text[:1000]  # keep it short
                     if resp.status_code not in RETRYABLE_STATUSES:
                         break  # non-transient error, no point retrying
                 except requests.RequestException as e:
@@ -239,6 +241,16 @@ if "seq" in st.session_state:
                 )
             elif last_error is not None:
                 st.error(f"Could not reach ESMFold API: {last_error}")
+
+            if not pdb_text:
+                with st.expander("🔧 Debug details"):
+                    st.write(f"Residues sent: {len(fold_seq)}")
+                    st.code(fold_seq, language="text")
+                    st.write(f"Last HTTP status: {last_status}")
+                    if last_body:
+                        st.code(last_body, language="text")
+                    if last_error:
+                        st.write(f"Connection error: {last_error}")
 
     if "pdb_text" in st.session_state:
         try:
