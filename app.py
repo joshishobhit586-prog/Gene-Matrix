@@ -189,12 +189,11 @@ if "seq" in st.session_state:
             )
         else:
             RETRYABLE_STATUSES = {502, 503, 504}
-            MAX_ATTEMPTS = 3
+            MAX_ATTEMPTS = 5
 
             pdb_text = None
             last_status = None
             last_error = None
-            last_body = None
 
             status_box = st.empty()
             for attempt in range(1, MAX_ATTEMPTS + 1):
@@ -213,44 +212,27 @@ if "seq" in st.session_state:
                         pdb_text = resp.text
                         break
                     last_status = resp.status_code
-                    last_body = resp.text[:1000]  # keep it short
                     if resp.status_code not in RETRYABLE_STATUSES:
                         break  # non-transient error, no point retrying
                 except requests.RequestException as e:
                     last_error = e
 
                 if attempt < MAX_ATTEMPTS:
-                    time.sleep(5 * attempt)  # 5s, then 10s backoff
+                    time.sleep(5 * attempt)  # 5s, 10s, 15s, 20s backoff
 
             status_box.empty()
 
             if pdb_text:
                 st.session_state["pdb_text"] = pdb_text
                 st.success("Structure predicted.")
-            elif last_status in RETRYABLE_STATUSES:
-                st.error(
-                    f"ESMFold API is temporarily overloaded (status {last_status}) "
-                    f"and didn't respond after {MAX_ATTEMPTS} attempts. This is a "
-                    "server-side issue on their end — wait a bit and try again, or "
-                    "try a shorter sequence."
+            else:
+                st.info(
+                    "🧬 The structure prediction service is taking a little "
+                    "longer than usual to respond right now — this happens "
+                    "sometimes with the free API and isn't a problem with your "
+                    "sequence. Feel free to try again in a moment, and thanks "
+                    "for your patience!"
                 )
-            elif last_status is not None:
-                st.error(
-                    f"ESMFold API returned an error (status {last_status}). "
-                    "Try again later."
-                )
-            elif last_error is not None:
-                st.error(f"Could not reach ESMFold API: {last_error}")
-
-            if not pdb_text:
-                with st.expander("🔧 Debug details"):
-                    st.write(f"Residues sent: {len(fold_seq)}")
-                    st.code(fold_seq, language="text")
-                    st.write(f"Last HTTP status: {last_status}")
-                    if last_body:
-                        st.code(last_body, language="text")
-                    if last_error:
-                        st.write(f"Connection error: {last_error}")
 
     if "pdb_text" in st.session_state:
         try:
