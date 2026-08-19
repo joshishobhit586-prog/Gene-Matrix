@@ -39,10 +39,20 @@ with col2:
     )
 
 
+def load_example():
+    st.session_state["dna_input"] = example_seq
+
+st.button(
+    "Use example sequence",
+    on_click=load_example
+)
+
+'''
+old and not wroking
 if use_example:
     st.session_state["dna_input"] = example_seq
     st.rerun()
-
+'''
 
 if analyze:
 
