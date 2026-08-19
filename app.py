@@ -34,7 +34,7 @@ VALID_BASES = set("ATGC")
 COMPLEMENT = {"A": "T", "T": "A", "G": "C", "C": "G"}
 
 
-def clean_sequence(raw: str) -> str:
+def clean_sequence(raw):
     """Uppercase and strip whitespace/newlines/numbers (e.g. pasted FASTA)."""
     seq = raw.strip().upper()
     lines = seq.splitlines()
@@ -45,29 +45,29 @@ def clean_sequence(raw: str) -> str:
     return seq
 
 
-def validate_sequence(seq: str):
+def validate_sequence(seq):
     invalid = sorted(set(seq) - VALID_BASES)
     return invalid
 
 
-def complementary_strand(seq: str) -> str:
+def complementary_strand(seq):
     return "".join(COMPLEMENT[b] for b in seq)
 
 
-def reverse_complement(seq: str) -> str:
+def reverse_complement(seq):
     return complementary_strand(seq)[::-1]
 
 
-def base_composition(seq: str) -> dict:
+def base_composition(seq):
     n = len(seq)
     return {b: round(seq.count(b) / n * 100, 2) for b in "ATGC"} if n else {}
 
 
-def to_rna(seq: str) -> str:
+def to_rna(seq):
     return seq.replace("T", "U")
 
 
-def translate_dna(seq: str) -> str:
+def translate_dna(seq):
     """Translate DNA -> protein using Biopython (frame 1)."""
     coding_len = len(seq) - (len(seq) % 3)
     protein = str(Seq(seq[:coding_len]).translate(to_stop=False))
