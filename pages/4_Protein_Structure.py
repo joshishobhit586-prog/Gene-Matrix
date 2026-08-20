@@ -3,7 +3,7 @@ import requests
 import streamlit as st
 
 
-st.title("🧫 3D Protein Structure")
+st.title("3D Protein Structure")
 
 
 if "protein" not in st.session_state:
@@ -13,7 +13,7 @@ if "protein" not in st.session_state:
     )
 
     st.info(
-        "Go to **🧬 Sequence Analysis** and analyze a DNA sequence first."
+        "Go to **Sequence Analysis** and analyze a DNA sequence first."
     )
 
     st.stop()
@@ -85,7 +85,7 @@ st.divider()
 
 
 predict = st.button(
-    "🧫 Predict 3D Structure with ESMFold",
+    "Predict 3D Structure with ESMFold",
     type="primary"
 )
 
@@ -241,7 +241,7 @@ if "pdb_text" in st.session_state:
 
 
     st.download_button(
-        "⬇️ Download predicted structure (.pdb)",
+        "⬇Download predicted structure (.pdb)",
         data=st.session_state["pdb_text"],
         file_name="predicted_structure.pdb",
         mime="chemical/x-pdb"

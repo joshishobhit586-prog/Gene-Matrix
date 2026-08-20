@@ -9,7 +9,7 @@ from dna_utils import (
 )
 
 
-st.title("🧬 Sequence Analysis")
+st.title("Sequence Analysis")
 
 st.write(
     "Enter a DNA sequence to calculate its length, "
@@ -36,7 +36,7 @@ with col1:
 
 with col2:
     analyze = st.button(
-        "🔍 Analyze sequence",
+        "Analyze sequence",
         type="primary"
     )
 

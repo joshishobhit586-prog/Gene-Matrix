@@ -42,5 +42,5 @@ example_seq = "ATGGTGCATCTGACTCCTGAGGAGAAGTCTGCCGTTACTGCCCGTGGGGA"
 st.code(example_seq, language="text")
 
 st.info(
-    "Start by opening **🧬 Sequence Analysis** from the sidebar."
+    "Start by opening **Sequence Analysis** from the sidebar."
 )
