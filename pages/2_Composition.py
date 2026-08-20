@@ -1,7 +1,7 @@
 import streamlit as st
 
 
-st.title("📊 Base Composition")
+st.title("Base Composition")
 
 
 if "seq" not in st.session_state:
@@ -11,7 +11,7 @@ if "seq" not in st.session_state:
     )
 
     st.info(
-        "Go to **🧬 Sequence Analysis** and analyze a sequence first."
+        "Go to **Sequence Analysis** and analyze a sequence first."
     )
 
     st.stop()
