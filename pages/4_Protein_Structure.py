@@ -241,7 +241,7 @@ if "pdb_text" in st.session_state:
 
 
     st.download_button(
-        "⬇Download predicted structure (.pdb)",
+        "Download predicted structure (.pdb)",
         data=st.session_state["pdb_text"],
         file_name="predicted_structure.pdb",
         mime="chemical/x-pdb"
