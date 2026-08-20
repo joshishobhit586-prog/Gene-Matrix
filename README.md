@@ -2,9 +2,9 @@
 
 Gene Matrix is a Streamlit web application for analyzing and comparing DNA sequences.
 
-## 🚀 Live Website
+##  Live Website
 
-### 👉 [Click here to open Gene Matrix](https://gene-matrix-uuwjruximt3u6bn67kuqvp.streamlit.app/)
+### [Click here to open Gene Matrix](https://gene-matrix-uuwjruximt3u6bn67kuqvp.streamlit.app/)
 
 **Working URL:**
 
@@ -12,7 +12,7 @@ https://gene-matrix-uuwjruximt3u6bn67kuqvp.streamlit.app/
 
 ---
 
-## 🧬 Features
+##  Features
 
 ### 1. DNA Sequence Analysis
 
