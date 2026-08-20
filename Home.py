@@ -16,12 +16,12 @@ st.markdown(
 
     This application allows you to analyze a DNA sequence and explore:
 
-    - 🧬 Basic sequence information
-    - 🔗 Complementary and reverse-complementary strands
-    - 📊 A/T/G/C composition
-    - 🧪 RNA transcription
-    - 🧬 Protein translation
-    - 🧫 Predicted 3D protein structure
+    - Basic sequence information
+    - Complementary and reverse-complementary strands
+    - A/T/G/C composition
+    - RNA transcription
+    - Protein translation
+    - Predicted 3D protein structure
 
     ### How to use
 
