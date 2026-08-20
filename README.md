@@ -1,50 +1,39 @@
-# 🧬 DNA Sequence Analysis Toolkit
+# 🧬 Gene Matrix – DNA Sequence Analysis Toolkit
 
-A single-file Streamlit app. Paste a DNA sequence and get:
+Gene Matrix is a Streamlit web application for analyzing and comparing DNA sequences.
 
-1. **Length** of the sequence
-2. **Complementary strand** (and reverse complement)
-3. **A/T/G/C composition** (percentages + GC content)
-4. **RNA sequence** (T → U transcription)
-5. **Protein sequence** (translation, reading frame 1)
-6. **Predicted 3D protein structure** (folded via the free ESMFold API, viewed in-browser)
+## Features
 
-## Setup
+### 🧬 Sequence Analysis
 
-```bash
-python -m venv venv
-source venv/bin/activate      # on Windows: venv\Scripts\activate
-pip install -r requirements.txt
-```
+Paste a DNA sequence and analyze:
 
-## Run
+1. **Sequence Length**
+2. **Complementary Strand**
+3. **Reverse Complement**
+4. **A/T/G/C Composition**
+5. **GC Content**
+6. **RNA Transcription** (T → U)
+7. **Protein Translation** (Reading Frame 1)
 
-```url
-https://gene-matrix-uuwjruximt3u6bn67kuqvp.streamlit.app/Sequence_Analysis```
+### 🔬 DNA Sequence Comparison
 
-This opens the Website
+Compare two DNA sequences using global sequence alignment.
 
-## Notes & limitations
+The comparison feature provides:
 
-- **Internet required** for steps 6  — it calls an external, free public
-  API (ESMFold / ESM Metagenomic Atlas). Steps 1-5 work
-  fully offline.
-- **ESMFold structure prediction** works best on sequences under ~400 amino
-  acids (a limit of the free public API). It folds only up to the first
-  stop codon (`*`).
-- Input is cleaned automatically: FASTA header lines (starting with `>`),
-  whitespace, and line breaks are stripped. Any character outside `A T G C`
-  will raise a validation error.
-- Translation reads only frame 1, starting at the first base — it does not
-  search for the first `ATG` start codon. If your sequence includes 5'
-  untranslated region before the start codon, trim it first for a cleaner
-  protein output.
+- Sequence alignment
+- Percentage sequence identity
+- Number of matches
+- Number of mismatches
+- Insertions and deletions (gaps)
+- Original sequence lengths
+- Aligned sequence length
+- Visual alignment display
 
-## Deploying it as a real website
+Example:
 
-To make this reachable at a URL rather than just `localhost`, the easiest
-option is:
-
-- **Streamlit Community Cloud** (free) — push this folder to a GitHub repo
-  and connect it at share.streamlit.io.
-
+```text
+Sequence 1: ATGGCAT
+            |||| ||
+Sequence 2: ATGG-AT
