@@ -2,38 +2,39 @@
 
 Gene Matrix is a Streamlit web application for analyzing and comparing DNA sequences.
 
-## Features
+## 🚀 Live Website
 
-### 🧬 Sequence Analysis
+### 👉 [Click here to open Gene Matrix](https://gene-matrix-uuwjruximt3u6bn67kuqvp.streamlit.app/)
 
-Paste a DNA sequence and analyze:
+**Working URL:**
 
-1. **Sequence Length**
-2. **Complementary Strand**
-3. **Reverse Complement**
-4. **A/T/G/C Composition**
-5. **GC Content**
-6. **RNA Transcription** (T → U)
-7. **Protein Translation** (Reading Frame 1)
+https://gene-matrix-uuwjruximt3u6bn67kuqvp.streamlit.app/
 
-### 🔬 DNA Sequence Comparison
+---
 
-Compare two DNA sequences using global sequence alignment.
+## 🧬 Features
 
-The comparison feature provides:
+### 1. DNA Sequence Analysis
 
-- Sequence alignment
-- Percentage sequence identity
-- Number of matches
-- Number of mismatches
-- Insertions and deletions (gaps)
-- Original sequence lengths
-- Aligned sequence length
-- Visual alignment display
+Analyze a DNA sequence to get:
 
-Example:
+- Sequence length
+- Complementary strand
+- Reverse complement
+
+### 2. DNA Composition
+
+Calculate:
+
+- Adenine (A) percentage
+- Thymine (T) percentage
+- Guanine (G) percentage
+- Cytosine (C) percentage
+- GC content
+
+### 3. DNA to RNA Transcription
+
+Convert DNA into RNA by replacing:
 
 ```text
-Sequence 1: ATGGCAT
-            |||| ||
-Sequence 2: ATGG-AT
+T → U
