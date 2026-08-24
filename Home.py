@@ -22,6 +22,8 @@ st.markdown(
     - RNA transcription
     - Protein translation
     - Predicted 3D protein structure
+    - Multiple sequence alignment (Clustal-style)
+    - PCR primer design
 
     ### How to use
 
