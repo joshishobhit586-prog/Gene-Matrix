@@ -220,25 +220,25 @@ def design_primer_pairs(
 
     pairs.sort(key=lambda p: p["penalty"])
 
-    # Select pairs while preventing primer reuse
     selected = []
-    fwd_used = {}
-    rev_used = {}
+    used_forward = set()
+    used_reverse = set()
 
     for p in pairs:
+        f = p["forward_seq"]
+        r = p["reverse_seq"]
 
-        f, r = p["forward_seq"], p["reverse_seq"]
-
-        if fwd_used.get(f, 0) >= max_reuse_per_primer:
+    # Never reuse the same forward primer
+        if f in used_forward:
             continue
 
-        if rev_used.get(r, 0) >= max_reuse_per_primer:
+    # Never reuse the same reverse primer
+        if r in used_reverse:
             continue
 
         selected.append(p)
-
-        fwd_used[f] = fwd_used.get(f, 0) + 1
-        rev_used[r] = rev_used.get(r, 0) + 1
+        used_forward.add(f)
+        used_reverse.add(r)
 
         if len(selected) >= max_pairs:
             break
