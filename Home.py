@@ -21,9 +21,10 @@ st.markdown(
     - A/T/G/C composition
     - RNA transcription
     - Protein translation
+    - Nucleotide Alignment Tool
     - Predicted 3D protein structure
     - Multiple sequence alignment (Clustal-style)
-    - PCR primer design
+    - Priming Sequenzer
 
     ### How to use
 
