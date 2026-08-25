@@ -2,13 +2,13 @@ import streamlit as st
 
 
 st.set_page_config(
-    page_title="DNA Analysis Toolkit",
+    page_title="DNA To Insight",
     page_icon="🧬",
     layout="wide"
 )
 
 
-st.title("🧬 DNA Sequence Analysis Toolkit")
+st.title("DNA To Insight")
 
 st.markdown(
     """
