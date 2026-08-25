@@ -7,17 +7,17 @@ COMPLEMENT = {
 
 
 def complement(seq):
-    """Return the direct complementary DNA sequence."""
+    #Return the direct complementary DNA sequence
     return "".join(COMPLEMENT[base] for base in seq)
 
 
 def reverse_complement(seq):
-    """Return the reverse complementary DNA sequence."""
+    #Return the reverse complementary DNA sequence
     return "".join(COMPLEMENT[base] for base in reversed(seq))
 
 
 def gc_percent(seq):
-    """Calculate GC percentage."""
+    #Calculate GC percentage
     if not seq:
         return 0.0
 
@@ -26,7 +26,7 @@ def gc_percent(seq):
 
 
 def melting_temp(seq):
-    """Approximate primer melting temperature in degrees Celsius."""
+    #Approximate primer melting temperature in degrees Celsius
 
     n = len(seq)
 
@@ -47,7 +47,7 @@ def melting_temp(seq):
 
 
 def has_run(seq, length=4):
-    """Check for a run of the same nucleotide."""
+    #Check for a run of the same nucleotide
 
     if not seq:
         return False
@@ -67,13 +67,13 @@ def has_run(seq, length=4):
 
 
 def gc_clamp_ok(seq):
-    """Check whether the primer ends with G or C."""
+    #Check whether the primer ends with G or C
 
     return bool(seq) and seq[-1] in ("G", "C")
 
 
 def score_primer(seq, target_gc=(40, 60), target_tm=(55, 65)):
-    """Score a primer. Lower score is better."""
+    #Score a primer. Lower score is better
 
     gc = gc_percent(seq)
     tm = melting_temp(seq)
@@ -113,7 +113,7 @@ def find_candidate_primers(
     target_gc=(40, 60),
     target_tm=(55, 65)
 ):
-    """Find and rank candidate primers."""
+    #Find and rank candidate primers.
 
     candidates = []
 
@@ -163,7 +163,7 @@ def design_primer_pairs(
     max_pairs=5,
     max_reuse_per_primer=1
 ):
-    """Design and rank forward/reverse primer pairs."""
+    #Design and rank forward/reverse primer pairs
 
     n = len(seq)
 
